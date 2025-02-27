@@ -12,6 +12,7 @@ phases:
       - echo "ENVIRONMENT_NAME=$ENVIRONMENT_NAME" >> .env
       - echo "HEKAOLD=$HEKAOLD" >> .env
       - echo "SECRET_KEY=$SECRET_KEY" >> .env
+      - echo "PORT=$PORT" >> .env
       - echo ".env creado correctamente"
       - chmod 400 .conf_aws/LightsailDefaultKey-us-east-2.pem
   install:
