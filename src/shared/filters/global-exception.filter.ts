@@ -56,9 +56,9 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   private translateMongoError(error: MongoServerError): string {
     switch (error.code) {
       case 11000:
-        return 'Duplicate key error: The provided value already exists.';
+        return 'Ya se encuentra registrado';
       case 121:
-        return 'Schema validation failed: Invalid document structure.';
+        return 'Hubo un problema al crear.';
       default:
         return 'A database error occurred.';
     }
