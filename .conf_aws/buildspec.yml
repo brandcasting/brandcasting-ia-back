@@ -1,0 +1,36 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Creando archivo .env"
+      - echo "PORT=$PORT" >> .env
+      - echo "DB_USER=$DB_USER" >> .env
+      - echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+      - echo "DB_CLUSTER=$DB_CLUSTER" >> .env
+      - echo "DB_NAME=$DB_NAME" >> .env
+      - echo "ENVIRONMENT_NAME=$ENVIRONMENT_NAME" >> .env
+      - echo "HEKAOLD=$HEKAOLD" >> .env
+      - echo "SECRET_KEY=$SECRET_KEY" >> .env
+      - echo ".env creado correctamente"
+      - chmod 400 .conf_aws/LightsailDefaultKey-us-east-2.pem
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - ssh -o StrictHostKeyChecking=no -i .conf_aws/LightsailDefaultKey-us-east-2.pem ${USER}@${IP} "mkdir -p /home/ubuntu/app"
+      - scp -i .conf_aws/LightsailDefaultKey-us-east-2.pem  -r dist package.json package-lock.json .env .conf_aws/deploy.sh ${USER}@${IP}:/home/ubuntu/app/
+      - ssh -i .conf_aws/LightsailDefaultKey-us-east-2.pem ${USER}@${IP} "bash /home/ubuntu/app/deploy.sh"
+artifacts:
+  files: 
+    - .env
+    - dist
+    - package.json
+    - package-lock.json
+    - .conf_aws/deploy.sh
