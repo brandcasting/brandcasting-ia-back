@@ -1,0 +1,6 @@
+ENVIRONMENT_NAME=dev
+DB_USER=brandcastingDev
+DB_PASSWORD=T3x9eRJJXkv1ZrVf
+DB_CLUSTER=cluster0.vb3vwpt.mongodb.net
+DB_NAME=dev
+SECRET_KEY=npdsdijiajdlkjijd
