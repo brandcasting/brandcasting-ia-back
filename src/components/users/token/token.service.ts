@@ -21,7 +21,7 @@ export class TokenService {
         const token = sign(user, process.env.SECRET_KEY, {
           expiresIn: '7d',
         });
-        return token;
+        return {token, user};
       }
       throw new UnauthorizedException('Constraseña incorrecta.');
     }
